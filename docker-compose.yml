@@ -1,0 +1,68 @@
+version: "3.8"
+
+networks:
+  apache-waf:
+
+secrets: #Define the secrets to use when mounting the TLS certificate.
+  server-key:
+    file: ${CERTIFICATE_PRIVATE_KEY_PATH}
+  server-cert:
+    file: ${CERTIFICATE_PATH}
+
+services:
+## Modsecurity WAF in apache. ###
+  mod-apache:
+    container_name: mod-apache
+    image: owasp/modsecurity-crs:apache
+    read_only: true
+    cap_drop: #Drop all capabilities
+      - "all"
+    cap_add: #Add net_bind_service capability to enable binding to lower ports.
+      - "net_bind_service"
+    secrets: #Certificates mounted as secrets.
+      - server-cert
+      - server-key
+    volumes: #Need to be writable to facilitate logging therefore we're mounting them as volumes.
+      - /etc/modsecurity.d/owasp-crs/
+      - /var/log/
+      - /usr/local/apache2/logs/
+    security_opt: #Default docker apparmor policy and restrict priviledge escalation using no-new-privileges
+      - apparmor:default-docker
+      - no-new-privileges
+    environment:
+      - BACKEND=http://webapp
+      - PROXY_SSL=on
+      - SERVERNAME=${DOMAIN}
+      - SSL_PROXY_PROTOCOL=TLSv1.2
+      - APACHE_ALWAYS_TLS_REDIRECT=on
+      - SSL_ENGINE=on
+      - PROXY_SSL_CERT_KEY=/run/secrets/server-key
+      - PROXY_SSL_CERT=/run/secrets/server-cert
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - apache-waf
+    
+### Webapp deployment###
+# simple webapp to display a "hello world".
+#filesystem is mounted as read-only except for /var/run/apache2 to enable logs.
+  webapp:
+    image: php:apache
+    user: 1001:1001 #Run with the UID and GID 1001
+    read_only: true
+    deploy:
+      replicas: ${REPLICAS:-1}
+      endpoint_mode: vip
+    cap_drop: #Drop all capabilities
+      - "all"
+    cap_add: #Add net_bind_service to use lower port numbers.
+      - "net_bind_service"
+    security_opt: #Default apparmor policy and restrict privilege escalation like above.
+      - apparmor:default-docker
+      - no-new-privileges
+    volumes: #Source code is mounted as read-only in /var/www/html. Logs folder need to be writable
+      - ./src:/var/www/html:ro
+      - /var/run/apache2/
+    networks: 
+     - apache-waf
