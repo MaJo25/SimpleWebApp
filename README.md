@@ -57,11 +57,9 @@ docker-compose up -d
 This application is configured to be a 2-tier application serving a static webpage. It is protected by a Web-application firewall that routes the requests to the backend server hosting the application. 
 TLS is terminated in the Web-application firewall and the requests are rejected if malicious payloads ment to attack the application are sent to the site.
 
-<<<<<<< HEAD
+
 The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker) I'm using the common ruleset available freely by Owasp.
-=======
-The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker)
->>>>>>> 8867a4eca26765c606ce648e4c12683ee8354dd7
+
 
 TLS is configured to only support TLS 1.2.
 
