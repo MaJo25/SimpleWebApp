@@ -3,8 +3,11 @@ This repository contains the nessecary docker-compose configuration to deploy a 
 
 An overview of the security configuration is available [here](#security)
 
+<<<<<<< HEAD
 For local development and testing: [Quickstart](#quickstart)
 
+=======
+>>>>>>> 8867a4eca26765c606ce648e4c12683ee8354dd7
 ---
 ## <a id="directory"></a>Directory structure
 
@@ -54,7 +57,11 @@ docker-compose up -d
 This application is configured to be a 2-tier application serving a static webpage. It is protected by a Web-application firewall that routes the requests to the backend server hosting the application. 
 TLS is terminated in the Web-application firewall and the requests are rejected if malicious payloads ment to attack the application are sent to the site.
 
+<<<<<<< HEAD
 The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker) I'm using the common ruleset available freely by Owasp.
+=======
+The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker)
+>>>>>>> 8867a4eca26765c606ce648e4c12683ee8354dd7
 
 TLS is configured to only support TLS 1.2.
 
@@ -77,6 +84,7 @@ The hardening of the containers running both the application and the Web applica
 
 2. Deploy endpoint protection on the servers. Both the WAF container and the Webapplication container.
 3. Utilize some form of container rumtime monitoring on the Node. E.g. [Aqua Security](https://www.aquasec.com/)
+<<<<<<< HEAD
 
 ---
 
@@ -102,3 +110,5 @@ docker-compose up -d
 ``` 
 
 5. Open a browser and navigate to security-engineer.test.
+=======
+>>>>>>> 8867a4eca26765c606ce648e4c12683ee8354dd7
