@@ -80,7 +80,7 @@ The hardening of the containers running both the application and the Web applica
                 syslog-address: "Address of syslog collector"
 
 2. Deploy endpoint protection on the servers. Both the WAF container and the Webapplication container.
-3. Utilize some form of container rumtime monitoring on the Node. E.g. [Aqua Security](https://www.aquasec.com/)
+3. Utilize some form of container runtime monitoring on the Node. E.g. [Aqua Security](https://www.aquasec.com/)
 ---
 
 ## <a id=quickstart></a>Quick start for local development **ONLY**
