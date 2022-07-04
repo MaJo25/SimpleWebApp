@@ -4,6 +4,7 @@ This repository contains the nessecary docker-compose configuration to deploy a 
 An overview of the security configuration is available [here](#security)
 
 For local development and testing: [Quickstart](#quickstart)
+
 ---
 ## <a id="directory"></a>Directory structure
 
