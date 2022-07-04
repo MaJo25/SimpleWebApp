@@ -3,6 +3,8 @@ This repository contains the nessecary docker-compose configuration to deploy a 
 
 An overview of the security configuration is available [here](#security)
 
+For production setup: [Production setup](#production)
+
 For local development and testing: [Quickstart](#quickstart)
 
 ---
