@@ -3,6 +3,8 @@ This repository contains the nessecary docker-compose configuration to deploy a 
 
 An overview of the security configuration is available [here](#security)
 
+For local development and testing: [Quickstart](#quickstart)
+
 ---
 ## <a id="directory"></a>Directory structure
 
@@ -52,7 +54,7 @@ docker-compose up -d
 This application is configured to be a 2-tier application serving a static webpage. It is protected by a Web-application firewall that routes the requests to the backend server hosting the application. 
 TLS is terminated in the Web-application firewall and the requests are rejected if malicious payloads ment to attack the application are sent to the site.
 
-The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker)
+The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker) I'm using the common ruleset available freely by Owasp.
 
 TLS is configured to only support TLS 1.2.
 
@@ -75,3 +77,28 @@ The hardening of the containers running both the application and the Web applica
 
 2. Deploy endpoint protection on the servers. Both the WAF container and the Webapplication container.
 3. Utilize some form of container rumtime monitoring on the Node. E.g. [Aqua Security](https://www.aquasec.com/)
+
+---
+
+## <a id=quickstart></a>Quick start for local development **ONLY**
+
+0. Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) on the machine and clone this repository.
+
+1. Edit your /etc/hosts file to include: 
+```
+127.0.0.1    security-engineer.test 
+```
+
+2.Generate self-signed certificates using:
+``` bash
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365
+```
+
+3. Save the cert.pem and key.pem files to disk and update the variables **CERTIFICATE_PATH** and **CERTIFICATE_PRIVATE_KEY_PATH** in the .env file.
+
+4. Run the below in the root of this repository.
+```bash 
+docker-compose up -d 
+``` 
+
+5. Open a browser and navigate to security-engineer.test.
