@@ -84,8 +84,6 @@ The hardening of the containers running both the application and the Web applica
 
 2. Deploy endpoint protection on the servers. Both the WAF container and the Webapplication container.
 3. Utilize some form of container rumtime monitoring on the Node. E.g. [Aqua Security](https://www.aquasec.com/)
-<<<<<<< HEAD
-
 ---
 
 ## <a id=quickstart></a>Quick start for local development **ONLY**
@@ -110,5 +108,3 @@ docker-compose up -d
 ``` 
 
 5. Open a browser and navigate to security-engineer.test.
-=======
->>>>>>> 8867a4eca26765c606ce648e4c12683ee8354dd7
