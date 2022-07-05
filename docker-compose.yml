@@ -33,11 +33,12 @@ services:
       - BACKEND=http://webapp
       - PROXY_SSL=on
       - SERVERNAME=${DOMAIN}
-      - SSL_PROXY_PROTOCOL=TLSv1.2
+      - SSL_PROXY_PROTOCOL=TLSv1.3
       - APACHE_ALWAYS_TLS_REDIRECT=on
       - SSL_ENGINE=on
       - PROXY_SSL_CERT_KEY=/run/secrets/server-key
       - PROXY_SSL_CERT=/run/secrets/server-cert
+      - SSL_HONOR_CIPHER_ORDER=on
     ports:
       - "80:80"
       - "443:443"
