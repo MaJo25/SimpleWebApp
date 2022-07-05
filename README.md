@@ -57,10 +57,17 @@ This application is configured to be a 2-tier application serving a static webpa
 TLS is terminated in the Web-application firewall and the requests are rejected if malicious payloads ment to attack the application are sent to the site.
 
 
-The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker) I'm using the common ruleset available freely by Owasp.
+The Web-application firewall is Modsecurity provided by [OWASP](https://github.com/coreruleset/modsecurity-crs-docker) I'm using the common ruleset available freely by Owasp. 
+
+ModSecurity is by default running as www-data user.
 
 
-TLS is configured to only support TLS 1.2.
+TLS is configured to only support TLS 1.3. The SSL engine is set to honor the server cipher order and not the client.
+
+Modsecurity enables these ciphers by default: 
+```
+ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+```
 
 The hardening of the containers running both the application and the Web application firewall consists of the following:
 
